@@ -1,10 +1,11 @@
 'use client';
 import { ServiceType } from "@/types/service";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import api from '../../service/api'
 
 export default function ServicePage() {
 
+  const [loading, setLoading] = useState(true)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(0)
@@ -14,7 +15,11 @@ export default function ServicePage() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id')
-    getServiceData(id)
+    if(id){
+      getServiceData(id)
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   async function getServiceData(id: string | null | undefined) {
@@ -28,11 +33,13 @@ export default function ServicePage() {
       setAuthor(serviceData.author || '')
     } catch (error) {
       console.error('getServiceData', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   function operationHandle(event: any) {
-    if(getCreateOrUpdateText() == 'Create'){
+    if (getCreateOrUpdateText() == 'Create') {
       createService(event)
     } else {
       updateService(event)
@@ -40,7 +47,8 @@ export default function ServicePage() {
   }
 
   async function createService(event: any) {
-    event.preventDefault() 
+    event.preventDefault()
+    setLoading(true)
     try {
       await api.post(`service`, {
         name,
@@ -51,11 +59,14 @@ export default function ServicePage() {
       window.location.href = window.location.origin
     } catch (error) {
       console.error('createService', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   async function updateService(event: any) {
-    event.preventDefault() 
+    event.preventDefault()
+    setLoading(true)
     try {
       await api.put(`service?id=${service.id}`, {
         name,
@@ -66,6 +77,8 @@ export default function ServicePage() {
       window.location.href = window.location.origin
     } catch (error) {
       console.error('updateService', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -73,6 +86,14 @@ export default function ServicePage() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id')
     return id == null ? 'Create' : 'Update'
+  }
+
+  if(loading){
+    return (
+      <Fragment>
+        <h1 className='text-lg' >Loading...</h1>
+      </Fragment>
+    )
   }
 
   return (
