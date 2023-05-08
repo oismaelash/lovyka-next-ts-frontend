@@ -16,8 +16,8 @@ export default function ServiceCardComponent(props: Props) {
 
     return (
         <Fragment>
-            <article key={props.id} className="flex max-w-xl flex-col items-start justify-between hover:cursor-pointer"
-                onClick={() => location.href = `service?id=${props.id}`}
+            <article key={props.id} className="flex max-w-xl flex-col items-start justify-between hover:cursor-pointer border-b  border-gray-200 bg-blue-50"
+                onClick={() => location.href = `details?id=${props.id}`}
             >
                 <div className="flex items-center gap-x-4 text-xs">
                     <time dateTime={props.datetime} className="text-gray-500">
