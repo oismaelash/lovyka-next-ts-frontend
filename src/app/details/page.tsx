@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import api from '../../service/api'
 import { formatDatetime } from '../../utils'
 import Comment from '../../components/Comment'
+import Tag from '../../components/Tag'
 
 export default function DetailsPage() {
 
@@ -74,6 +75,11 @@ export default function DetailsPage() {
     }
   }
 
+
+  function editService() {
+    location.href = `service?id=${service.id}`
+  }
+
   if(loading){
     return (
       <Fragment>
@@ -104,25 +110,10 @@ export default function DetailsPage() {
             <p className="mt-8 mb-8 text-lg leading-8 text-gray-600">
               {service.description}
             </p>
-            <span
-              className="mr-5 inline-flex items-center rounded-md bg-green-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
-              PRICE = {service.price}
-            </span>
-            <span
-              onClick={() => addLike(service.id)}
-              className="mr-5 hover:cursor-pointer inline-flex items-center rounded-md bg-blue-600 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
-              LIKE = {service.likes}
-            </span>
-            <span
-              onClick={() => addDislike(service.id)}
-              className="mr-5 hover:cursor-pointer inline-flex items-center rounded-md bg-red-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-red-600/10">
-              DISLIKE = {service.dislikes}
-            </span>
-            <span
-              onClick={() => location.href = `service?id=${service.id}`}
-              className="hover:cursor-pointer inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-red-600/10">
-              EDIT SERVICE
-            </span>
+            <Tag color="bg-green-500" text={`PRICE = ${service.price}`} isButton={false} />
+            <Tag color="bg-blue-600" onAction={() => addLike(service.id)} text={`LIKE = ${service.likes}`}  isButton={true} />
+            <Tag color="bg-red-500" onAction={() => addDislike(service.id)} text={`DISLIKE = ${service.dislikes}`}  isButton={true} />
+            <Tag color="bg-orange-500" onAction={() => editService()} text={`EDIT SERVICE`}  isButton={true} />
           </div>
 
           <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8  border-t border-gray-200 pt-10 sm:mt-4 sm:pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
