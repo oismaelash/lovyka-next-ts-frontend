@@ -33,6 +33,7 @@ export default function ServicePage() {
       setAuthor(serviceData.author || '')
     } catch (error) {
       console.error('getServiceData', error)
+      alert(`error on get services:: ${error}`)
     } finally {
       setLoading(false)
     }
@@ -59,6 +60,7 @@ export default function ServicePage() {
       window.location.href = window.location.origin
     } catch (error) {
       console.error('createService', error)
+      alert(`error on create a service:: ${error}`)
     } finally {
       setLoading(false)
     }
@@ -77,6 +79,7 @@ export default function ServicePage() {
       window.location.href = window.location.origin
     } catch (error) {
       console.error('updateService', error)
+      alert(`error on update a service:: ${error}`)
     } finally {
       setLoading(false)
     }

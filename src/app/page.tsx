@@ -19,9 +19,11 @@ export default function Index() {
     try {
       const response = (await api.get<Array<ServiceType>>('service/all')).data
       setServices(response)
-      setLoading(false)
     } catch (error) {
       console.error('getServicesData', error)
+      alert(`error on get services:: ${error}`)
+    } finally {
+      setLoading(false)
     }
   }
 

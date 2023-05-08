@@ -19,12 +19,16 @@ export default function DetailsPage() {
   }, [])
 
   async function getServiceData(id: string | null | undefined) {
+    setLoading(true)
     try {
       const response = ((await api.get(`service/one?id=${id}`)).data)
       setService(response.data)
       setLoading(false)
     } catch (error) {
       console.error('getServiceData', error)
+      alert(`error on get services:: ${error}`)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -35,6 +39,7 @@ export default function DetailsPage() {
       getServiceData(serviceId)
     } catch (error) {
       console.error('addLike', error)
+      alert(`error on set new like:: ${error}`)
     } finally {
       setLoading(false)
     }
@@ -47,6 +52,7 @@ export default function DetailsPage() {
       getServiceData(serviceId)
     } catch (error) {
       console.error('addDislike', error)
+      alert(`error on set new dislike:: ${error}`)
     } finally {
       setLoading(false)
     }
@@ -62,6 +68,7 @@ export default function DetailsPage() {
       setComment('')
     } catch (error) {
       console.error('getServiceData', error)
+      alert(`error on add new comment:: ${error}`)
     } finally {
       setLoading(false)
     }
