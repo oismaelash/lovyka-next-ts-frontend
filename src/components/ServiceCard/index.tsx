@@ -54,12 +54,12 @@ export default function ServiceCardComponent(props: Props) {
                     </div>
                 </div>
 
-                <div className="relative mt-8 flex items-center gap-x-4">
+                <div className="relative mt-4 flex items-center gap-x-4">
                     <div className="text-sm leading-6">
                         <p className="font-semibold text-gray-900">
                             <a>
                                 <span className="absolute inset-0" />
-                                {props.author}
+                                Author: {props.author}
                             </a>
                         </p>
                     </div>
