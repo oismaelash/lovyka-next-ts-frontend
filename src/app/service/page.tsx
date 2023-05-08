@@ -15,7 +15,7 @@ export default function ServicePage() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id')
-    if(id){
+    if (id) {
       getServiceData(id)
     } else {
       setLoading(false)
@@ -85,13 +85,27 @@ export default function ServicePage() {
     }
   }
 
+  async function deleteService(event: any) {
+    event.preventDefault()
+    setLoading(true)
+    try {
+      await api.delete(`service?id=${service.id}`)
+      window.location.href = window.location.origin
+    } catch (error) {
+      console.error('deleteService', error)
+      alert(`error on delete a service:: ${error}`)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   function getCreateOrUpdateText() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id')
     return id == null ? 'Create' : 'Update'
   }
 
-  if(loading){
+  if (loading) {
     return (
       <Fragment>
         <h1 className='text-lg' >Loading...</h1>
@@ -173,9 +187,19 @@ export default function ServicePage() {
                     {getCreateOrUpdateText()}
                   </button>
                 </div>
+                {getCreateOrUpdateText() == 'Update' && (
+                  <div>
+                    <button
+                      onClick={deleteService}
+                      className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
                 <div>
                   <button
-                    className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={() => location.href = '/'}
                   >
                     Back
