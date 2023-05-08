@@ -1,7 +1,7 @@
 'use client';
 
 import { ServiceType } from "@/types/service";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import api from '../../service/api'
 import { formatDatetime } from '../../utils'
 import Comment from '../../components/Comment'
@@ -10,6 +10,7 @@ export default function DetailsPage() {
 
   const [service, setService] = useState<ServiceType>({})
   const [comment, setComment] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,6 +22,7 @@ export default function DetailsPage() {
     try {
       const response = ((await api.get(`service/one?id=${id}`)).data)
       setService(response.data)
+      setLoading(false)
     } catch (error) {
       console.error('getServiceData', error)
     }
@@ -28,23 +30,30 @@ export default function DetailsPage() {
 
   async function addLike(serviceId: string | undefined) {
     try {
+      setLoading(true)
       await api.post(`like/add-like?serviceId=${serviceId}`)
       getServiceData(serviceId)
     } catch (error) {
       console.error('addLike', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   async function addDislike(serviceId: string | undefined) {
+    setLoading(true)
     try {
       await api.post(`like/add-dislike?serviceId=${serviceId}`)
       getServiceData(serviceId)
     } catch (error) {
       console.error('addDislike', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   async function addComment(serviceId: string | null | undefined) {
+    setLoading(true)
     try {
       await api.post(`comment?serviceId=${serviceId}`, {
         text: comment
@@ -53,7 +62,17 @@ export default function DetailsPage() {
       setComment('')
     } catch (error) {
       console.error('getServiceData', error)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  if(loading){
+    return (
+      <Fragment>
+        <h1 className='text-lg' >Loading...</h1>
+      </Fragment>
+    )
   }
 
   return (

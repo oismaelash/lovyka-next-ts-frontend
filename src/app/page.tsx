@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import ServiceCard from '../components/ServiceCard'
 import api from '../service/api'
 import { ServiceType } from '@/types/service';
@@ -8,6 +8,8 @@ import { formatDatetime } from '../utils'
 export default function Index() {
 
   const [services, setServices] = useState<Array<ServiceType>>([])
+  const [loading, setLoading] = useState(true)
+
 
   useEffect(() => {
     getServicesData()
@@ -17,9 +19,18 @@ export default function Index() {
     try {
       const response = (await api.get<Array<ServiceType>>('service/all')).data
       setServices(response)
+      setLoading(false)
     } catch (error) {
       console.error('getServicesData', error)
     }
+  }
+
+  if(loading){
+    return (
+      <Fragment>
+        <h1 className='text-lg' >Loading...</h1>
+      </Fragment>
+    )
   }
 
   return (
@@ -39,18 +50,17 @@ export default function Index() {
               Create new service
             </button>
           </div>
-          {/* <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-8 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"> */}
           <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-8 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-1">
             {services.map((service) => (
-              <ServiceCard 
-              author={service.author}
-              datetime={formatDatetime(service.created_at)}
-              description={service.description}
-              id={service.id}
-              title={service.name}
-              key={service.id}
-              dislike={service.dislikes}
-              like={service.likes}
+              <ServiceCard
+                author={service.author}
+                datetime={formatDatetime(service.created_at)}
+                description={service.description}
+                id={service.id}
+                title={service.name}
+                key={service.id}
+                dislike={service.dislikes}
+                like={service.likes}
               />
             ))}
           </div>
