@@ -80,7 +80,7 @@ export default function DetailsPage() {
     location.href = `service?id=${service.id}`
   }
 
-  if(loading){
+  if (loading) {
     return (
       <Fragment>
         <h1 className='text-lg' >Loading...</h1>
@@ -111,9 +111,9 @@ export default function DetailsPage() {
               {service.description}
             </p>
             <Tag color="bg-green-500" text={`PRICE = ${service.price}`} isButton={false} />
-            <Tag color="bg-blue-600" onAction={() => addLike(service.id)} text={`LIKE = ${service.likes}`}  isButton={true} />
-            <Tag color="bg-red-500" onAction={() => addDislike(service.id)} text={`DISLIKE = ${service.dislikes}`}  isButton={true} />
-            <Tag color="bg-orange-500" onAction={() => editService()} text={`EDIT SERVICE`}  isButton={true} />
+            <Tag color="bg-blue-600" onAction={() => addLike(service.id)} text={`LIKE = ${service.likes}`} isButton={true} />
+            <Tag color="bg-red-500" onAction={() => addDislike(service.id)} text={`DISLIKE = ${service.dislikes}`} isButton={true} />
+            <Tag color="bg-orange-500" onAction={() => editService()} text={`EDIT SERVICE`} isButton={true} />
           </div>
 
           <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8  border-t border-gray-200 pt-10 sm:mt-4 sm:pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
