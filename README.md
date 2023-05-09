@@ -1,3 +1,9 @@
+# About project
+https://www.youtube.com/watch?v=p9JC8Wa0ids
+
+# Backend project
+https://github.com/oismaelash/lovyka-nest-ts-backend
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
