@@ -1,6 +1,7 @@
 'use client';
 import { Fragment, useEffect, useState } from 'react';
 import ServiceCard from '../components/ServiceCard'
+import Loading from '../components/Loading'
 import api from '../service/api'
 import { ServiceType } from '@/types/service';
 import { formatDatetime } from '../utils'
@@ -29,14 +30,12 @@ export default function Index() {
 
   if(loading){
     return (
-      <Fragment>
-        <h1 className='text-lg' >Loading...</h1>
-      </Fragment>
+      <Loading />
     )
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">

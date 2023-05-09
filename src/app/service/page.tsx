@@ -1,7 +1,8 @@
 'use client';
 import { ServiceType } from "@/types/service";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from '../../service/api'
+import Loading from '../../components/Loading'
 
 export default function ServicePage() {
 
@@ -107,9 +108,7 @@ export default function ServicePage() {
 
   if (loading) {
     return (
-      <Fragment>
-        <h1 className='text-lg' >Loading...</h1>
-      </Fragment>
+      <Loading />
     )
   }
 

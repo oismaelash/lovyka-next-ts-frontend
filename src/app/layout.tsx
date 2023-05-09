@@ -1,4 +1,6 @@
 import './globals.css'
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 
 export const metadata = {
   title: 'Lovyka Services',
@@ -12,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html className="h-full ">
-      <body className="h-full">{children}</body>
+      <body className="h-full">
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }

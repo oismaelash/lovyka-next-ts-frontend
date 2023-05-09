@@ -1,11 +1,12 @@
 'use client';
 
 import { ServiceType } from "@/types/service";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from '../../service/api'
 import { formatDatetime } from '../../utils'
 import Comment from '../../components/Comment'
 import Tag from '../../components/Tag'
+import Loading from '../../components/Loading'
 
 export default function DetailsPage() {
 
@@ -75,24 +76,21 @@ export default function DetailsPage() {
     }
   }
 
-
   function editService() {
     location.href = `service?id=${service.id}`
   }
 
   if (loading) {
     return (
-      <Fragment>
-        <h1 className='text-lg' >Loading...</h1>
-      </Fragment>
+      <Loading />
     )
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0 mb-8">
+      <div className="bg-white py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl mb-8">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               {service.name}
             </h2>
@@ -116,7 +114,7 @@ export default function DetailsPage() {
             <Tag color="bg-orange-500" onAction={() => editService()} text={`EDIT SERVICE`} isButton={true} />
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8  border-t border-gray-200 pt-10 sm:mt-4 sm:pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8  border-t border-gray-200 pt-10 sm:mt-4 sm:pt-4">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <input
